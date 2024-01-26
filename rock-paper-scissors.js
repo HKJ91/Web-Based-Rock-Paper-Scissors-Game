@@ -21,7 +21,33 @@
         };
       }
       */
+
+      let isAutoPlaying = false;
+      let intervalId;
+
+      function autoPlay() {
+        if (!isAutoPlaying) {
+          intervalId = setInterval(function() {
+            const playerMove = pickComputerMove();
+            playGame(playerMove);
+          }, 1000);
+          isAutoPlaying = true;
+        } else {
+          clearInterval(intervalId);
+          isAutoPlaying = false;
+        }
+      }
       
+      document.body.addEventListener('keydown', (event) => {
+        if (event.key === 'r') {
+          playGame('rock');
+        } else if (event.key === 'p') {
+          playGame('paper');
+        } else if (event.key === 's') {
+          playGame('scissors');
+        }
+      })
+
       function playGame(playerMove) {
         const computerMove = pickComputerMove();
 
